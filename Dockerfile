@@ -1,3 +1,5 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
-COPY ./src /app
+COPY app ./app
+COPY setup.py .
+RUN python setup.py install
