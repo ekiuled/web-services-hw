@@ -1,5 +1,6 @@
+from typing import List
 from fastapi import FastAPI, status, HTTPException
-from .scheme import NutritionBase, Nutrition
+from .scheme import *
 from . import core
 from .errors import *
 
@@ -22,3 +23,35 @@ def add_nutrition(nutrition: NutritionBase):
     except NegativeAmountError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=e.message)
+
+
+@app.get("/nutrition/{food_name}/calories", response_model=CompoundNutrition)
+def get_nutrition_by_calories(food_name: str, calories: float):
+    try:
+        return core.get_compound_nutrition_by_calories(food_name, calories)
+    except FoodNotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=e.message)
+
+
+@app.get("/nutrition/{food_name}/weight", response_model=CompoundNutrition)
+def get_nutrition_by_weight(food_name: str, weight: float):
+    try:
+        return core.get_compound_nutrition_by_weight(food_name, weight)
+    except FoodNotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=e.message)
+
+
+@app.get("/nutrition/{food_name}/servings", response_model=CompoundNutrition)
+def get_nutrition_by_servings(food_name: str, servings: float):
+    try:
+        return core.get_compound_nutrition_by_servings(food_name, servings)
+    except FoodNotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=e.message)
+
+
+@app.get("/compound-nutrition", response_model=CompoundNutrition)
+def get_compound_nutrition(food_components: List[CompoundNutrition]):
+    return core.get_compound_nutrition(*food_components)

@@ -1,3 +1,4 @@
+from typing import List
 from .database import nutrition_db
 from .scheme import *
 from .errors import *
@@ -34,7 +35,7 @@ def get_compound_nutrition_by_servings(food_name: str, servings: float) -> Compo
     return CompoundNutrition(name=food_name, calories=nutrition["calories_per_serving"] * servings, weight=nutrition["serving_size"]*servings)
 
 
-def get_compound_nutrition(*food_components: list[CompoundNutrition]) -> CompoundNutrition:
+def get_compound_nutrition(*food_components: List[CompoundNutrition]) -> CompoundNutrition:
     if not food_components:
         return CompoundNutrition()
 
