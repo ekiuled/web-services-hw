@@ -28,3 +28,9 @@ Or run the server in a Docker container and access it at `localhost`:
 ```
 docker run -d -p 80:80 myimage
 ```
+
+## Testing
+
+```
+pytest
+```

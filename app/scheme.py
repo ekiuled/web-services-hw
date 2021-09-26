@@ -14,3 +14,9 @@ class Nutrition(NutritionBase):
     @validator('calories_per_serving', always=True)
     def set_calories_per_serving(cls, v, values) -> float:
         return values["calories_per_100_g"] / 100 * values["serving_size"]
+
+
+class CompoundNutrition(BaseModel):
+    name: str = ""
+    weight: float = 0
+    calories: float = 0
