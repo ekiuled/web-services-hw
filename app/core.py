@@ -39,7 +39,7 @@ def get_compound_nutrition(*food_components: List[CompoundNutrition]) -> Compoun
     if not food_components:
         return CompoundNutrition()
 
-    nutrition = food_components[0]
+    nutrition = food_components[0].copy()
     for food in food_components[1:]:
         nutrition.name += f", {food.name}"
         nutrition.weight += food.weight
