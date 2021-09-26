@@ -64,6 +64,12 @@ class TestGetCompoundNutritionSingleFood:
         assert nutrition.calories == 450
         assert nutrition.weight == 150
 
+    def test_calories_from_servings(self):
+        nutrition = get_compound_nutrition_by_servings("toast", 3)
+        assert nutrition.name == "toast"
+        assert nutrition.calories == 450
+        assert nutrition.weight == 150
+
     def test_get_invalid_food_by_calories(self):
         with pytest.raises(FoodNotFoundError):
             get_compound_nutrition_by_calories("bad food", 123)
@@ -71,6 +77,10 @@ class TestGetCompoundNutritionSingleFood:
     def test_get_invalid_food_by_weight(self):
         with pytest.raises(FoodNotFoundError):
             get_compound_nutrition_by_weight("bad food", 123)
+
+    def test_get_invalid_food_by_servings(self):
+        with pytest.raises(FoodNotFoundError):
+            get_compound_nutrition_by_servings("bad food", 1.5)
 
 
 class TestGetCompoundNutrition:

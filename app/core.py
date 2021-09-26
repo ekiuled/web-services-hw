@@ -29,6 +29,11 @@ def get_compound_nutrition_by_weight(food_name: str, weight_g: float) -> Compoun
     return CompoundNutrition(name=food_name, calories=nutrition["calories_per_100_g"] / 100 * weight_g, weight=weight_g)
 
 
+def get_compound_nutrition_by_servings(food_name: str, servings: float) -> CompoundNutrition:
+    nutrition = get_nutrition(food_name)
+    return CompoundNutrition(name=food_name, calories=nutrition["calories_per_serving"] * servings, weight=nutrition["serving_size"]*servings)
+
+
 def get_compound_nutrition(*food_components: list[CompoundNutrition]) -> CompoundNutrition:
     if not food_components:
         return CompoundNutrition()
