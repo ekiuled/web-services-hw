@@ -54,7 +54,7 @@ calories: float
 Get either all available recipes or some recipe by its name. Access GraphiQL at `/recipes` and enter your query.
 
 #### Schema
-```
+```python
 type Nutrition {
     calories: Float
     fats: Float
@@ -77,14 +77,14 @@ type Recipe {
 ```
 
 #### Query
-```
+```python
 type Query {
     recipes(name: String): [Recipe]
 }
 ```
 
 #### Examples
-```
+```python
 query {
   recipes {
     name
@@ -97,7 +97,7 @@ query {
 }
 ```
 
-```
+```python
 query {
   recipes(name: "Avocado Toast") {
     name
