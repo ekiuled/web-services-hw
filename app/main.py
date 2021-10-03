@@ -1,1 +1,1 @@
-from .endpoints import app
+from app.endpoints.fastapi import app

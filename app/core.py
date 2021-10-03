@@ -1,7 +1,7 @@
 from typing import List
-from .database import nutrition_db
-from .scheme import *
-from .errors import *
+from app.database import nutrition_db
+from app.scheme import *
+from app.errors import *
 
 
 def get_nutrition(food_name: str) -> dict:
