@@ -15,5 +15,6 @@ class Query:
         return [get_recipe(name)]
 
 
-graphql_app = GraphQL(Schema(Query))
+schema = Schema(Query)
+graphql_app = GraphQL(schema)
 app.add_route("/recipes", graphql_app)
