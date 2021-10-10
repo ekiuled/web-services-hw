@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import FastAPI, status, HTTPException
-from .scheme import *
-from . import core
-from .errors import *
+from app.scheme import *
+from app import core
+from app.errors import *
 
 app = FastAPI()
 

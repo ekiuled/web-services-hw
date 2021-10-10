@@ -1,8 +1,8 @@
 import pytest
-from ..core import *
-from ..errors import *
-from ..scheme import NutritionBase
-from ..database import nutrition_db
+from app.core import *
+from app.errors import *
+from app.scheme import NutritionBase
+from app.database import nutrition_db
 
 
 class TestGetNutrition:

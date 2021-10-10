@@ -50,6 +50,78 @@ weight: float
 calories: float
 ```
 
+### Get recipes (GraphQL)
+Get either all available recipes or some recipe by its name. Access GraphiQL at `/recipes` and enter your query.
+
+#### Schema
+```python
+type Nutrition {
+    calories: Float
+    fats: Float
+    carbs: Float
+    protein: Float
+}
+
+type Ingredient {
+    name: String
+    amount: Float
+    nutrition: Nutrition
+}
+
+type Recipe {
+    name: String
+    ingredients: [Ingredient]
+    steps: [String]
+    nutrition: Nutrition
+}
+```
+
+#### Query
+```python
+type Query {
+    recipes(name: String): [Recipe]
+}
+```
+
+#### Examples
+```python
+query {
+  recipes {
+    name
+    steps
+    ingredients {
+      amount
+      name
+    }
+  }
+}
+```
+
+```python
+query {
+  recipes(name: "Avocado Toast") {
+    name
+    ingredients {
+      name
+      nutrition {
+        calories
+        fats
+        protein
+        carbs
+      }
+      amount
+    }
+    nutrition {
+      calories
+      carbs
+      fats
+      protein
+    }
+    steps
+  }
+}
+```
+
 ## Usage
 
 Run the server locally and access it at `localhost:8000`:

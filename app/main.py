@@ -1,1 +1,1 @@
-from .endpoints import app
+from app.endpoints import app

@@ -1,5 +1,5 @@
 import pytest
-from ..core import *
+from app.core import *
 
 
 def test_get_after_add():
