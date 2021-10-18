@@ -2,7 +2,7 @@ import pytest
 from app.fastapi.core import *
 from app.errors import *
 from app.fastapi.scheme import NutritionBase
-from app.database import nutrition_db
+from app.fastapi.database import nutrition_db
 
 
 class TestGetNutrition:

@@ -1,5 +1,5 @@
 from typing import List
-from app.database import nutrition_db
+from app.fastapi.database import nutrition_db
 from app.fastapi.scheme import *
 from app.errors import *
 

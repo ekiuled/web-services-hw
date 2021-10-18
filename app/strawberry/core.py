@@ -1,6 +1,6 @@
 from typing import List
 from app.strawberry.scheme import *
-from app.database import *
+from app.strawberry.database import *
 from app.errors import *
 
 
