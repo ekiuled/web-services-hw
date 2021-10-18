@@ -1,5 +1,5 @@
 import pytest
-from app.core import *
+from app.fastapi.core import *
 
 
 def test_get_after_add():

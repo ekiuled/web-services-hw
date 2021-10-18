@@ -1,7 +1,7 @@
 import pytest
-from app.core import *
+from app.fastapi.core import *
 from app.errors import *
-from app.scheme import NutritionBase
+from app.fastapi.scheme import NutritionBase
 from app.database import nutrition_db
 
 
