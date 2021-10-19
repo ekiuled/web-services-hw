@@ -11,3 +11,7 @@ class Nutrition(Base):
     serving_size = Column(Float, default=100)
     calories_per_100_g = Column(Float)
     calories_per_serving = Column(Float)
+
+    fats_per_100_g = Column(Float, default=0)
+    carbs_per_100_g = Column(Float, default=0)
+    protein_per_100_g = Column(Float, default=0)

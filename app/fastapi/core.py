@@ -1,12 +1,13 @@
 from typing import List
 from app.fastapi.scheme import *
-from app.fastapi import models
+from app.database import crud
+from app.database import models
 from app.errors import *
 from sqlalchemy.orm import Session
 
 
 def get_nutrition(db: Session, food_name: str) -> Nutrition:
-    nutrition = db.query(models.Nutrition).filter(models.Nutrition.name == food_name).first()
+    nutrition = crud.get(db, food_name)
     if nutrition is None:
         raise FoodNotFoundError
     return Nutrition(**nutrition.__dict__)
@@ -18,7 +19,7 @@ def add_nutrition(db: Session, nutrition: NutritionBase) -> Nutrition:
 
     nutrition = Nutrition(**nutrition.dict())
     db_nutrition = models.Nutrition(**nutrition.dict())
-    db.add(db_nutrition)
+    crud.add(db, db_nutrition)
     return nutrition
 
 

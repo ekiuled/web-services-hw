@@ -1,6 +1,6 @@
 import pytest
-from app.fastapi.database import SessionLocal
-from app.fastapi.models import Nutrition
+from app.database.database import SessionLocal
+from app.database.models import Nutrition
 
 
 @pytest.fixture
