@@ -1,14 +1,19 @@
-from app.database.dictionaries import nutrition_db
-from app.database.database import SessionLocal, engine
-from app.database import models
+from app.database.dictionaries import *
+from app.database.database import DB, engine
+from app.database.models import *
+from app.database.crud import *
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
-db = SessionLocal()
+db = DB()
 
 for nutrition in nutrition_db.values():
-    db_nutrition = models.Nutrition(**nutrition)
+    db_nutrition = Nutrition(**nutrition)
     db.add(db_nutrition)
 
 db.commit()
-db.close()
+
+for recipe in recipe_db.values():
+    add_recipe(db, recipe)
+
+db.commit()

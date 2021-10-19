@@ -1,14 +1,13 @@
 import pytest
-from app.database.database import SessionLocal
+from app.database.database import DB
 from app.database.models import Nutrition
 
 
 @pytest.fixture
 def db_session():
-    session = SessionLocal()
+    session = DB()
     yield session
     session.rollback()
-    session.close()
 
 
 @pytest.fixture

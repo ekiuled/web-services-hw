@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 
 def get_nutrition(db: Session, food_name: str) -> Nutrition:
-    nutrition = crud.get(db, food_name)
+    nutrition = crud.get_nutrition(db, food_name)
     if nutrition is None:
         raise FoodNotFoundError(food_name)
     return Nutrition(**nutrition.__dict__)
@@ -19,7 +19,7 @@ def add_nutrition(db: Session, nutrition: NutritionBase) -> Nutrition:
 
     nutrition = Nutrition(**nutrition.dict())
     db_nutrition = models.Nutrition(**nutrition.dict())
-    crud.add(db, db_nutrition)
+    crud.add_nutrition(db, db_nutrition)
     return nutrition
 
 

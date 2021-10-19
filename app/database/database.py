@@ -13,3 +13,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def DB():
+    return next(get_db())

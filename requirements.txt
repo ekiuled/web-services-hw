@@ -1,3 +1,4 @@
 fastapi
 strawberry-graphql[debug-server]
 SQLAlchemy
+celery
