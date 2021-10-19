@@ -1,52 +1,56 @@
 from typing import List
-from fastapi import FastAPI, status, HTTPException
-from app.scheme import *
-from app import core
+from fastapi import FastAPI, status, HTTPException, Depends
+from sqlalchemy.orm import Session
+from app.fastapi.database import get_db
+from app.fastapi.scheme import *
+from app.fastapi import core
 from app.errors import *
 
 app = FastAPI()
 
 
 @app.get("/nutrition/{food_name}", response_model=Nutrition)
-def get_nutrition(food_name: str):
+def get_nutrition(food_name: str, db: Session = Depends(get_db)):
     try:
-        return core.get_nutrition(food_name)
+        return core.get_nutrition(db, food_name)
     except FoodNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=e.message)
 
 
 @app.post("/nutrition", response_model=Nutrition, status_code=status.HTTP_201_CREATED)
-def add_nutrition(nutrition: NutritionBase):
+def add_nutrition(nutrition: NutritionBase, db: Session = Depends(get_db)):
     try:
-        return core.add_nutrition(nutrition)
+        nutrition = core.add_nutrition(db, nutrition)
+        db.commit()
+        return nutrition
     except NegativeAmountError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=e.message)
 
 
 @app.get("/nutrition/{food_name}/calories", response_model=CompoundNutrition)
-def get_nutrition_by_calories(food_name: str, calories: float):
+def get_nutrition_by_calories(food_name: str, calories: float, db: Session = Depends(get_db)):
     try:
-        return core.get_compound_nutrition_by_calories(food_name, calories)
+        return core.get_compound_nutrition_by_calories(db, food_name, calories)
     except FoodNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=e.message)
 
 
 @app.get("/nutrition/{food_name}/weight", response_model=CompoundNutrition)
-def get_nutrition_by_weight(food_name: str, weight: float):
+def get_nutrition_by_weight(food_name: str, weight: float, db: Session = Depends(get_db)):
     try:
-        return core.get_compound_nutrition_by_weight(food_name, weight)
+        return core.get_compound_nutrition_by_weight(db, food_name, weight)
     except FoodNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=e.message)
 
 
 @app.get("/nutrition/{food_name}/servings", response_model=CompoundNutrition)
-def get_nutrition_by_servings(food_name: str, servings: float):
+def get_nutrition_by_servings(food_name: str, servings: float, db: Session = Depends(get_db)):
     try:
-        return core.get_compound_nutrition_by_servings(food_name, servings)
+        return core.get_compound_nutrition_by_servings(db, food_name, servings)
     except FoodNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=e.message)

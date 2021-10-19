@@ -2,6 +2,28 @@
 
 Simple REST API application for getting food nutrition value. 
 
+## Usage
+
+Setup the SQLite database, run the server locally and access it at `localhost:8000`:
+
+```
+python db_setup.py
+uvicorn app.main:app --reload
+```
+
+Or run the server in a Docker container and access it at `localhost`:
+```
+docker run -d -p 80:80 myimage
+```
+
+## Testing
+
+Unit and integration tests can be run with pytest:
+
+```
+pytest
+```
+
 ## REST API
 
 ### Get nutrition value 
@@ -120,25 +142,4 @@ query {
     steps
   }
 }
-```
-
-## Usage
-
-Run the server locally and access it at `localhost:8000`:
-
-```
-uvicorn app.main:app --reload
-```
-
-Or run the server in a Docker container and access it at `localhost`:
-```
-docker run -d -p 80:80 myimage
-```
-
-## Testing
-
-Unit and integration tests can be run with pytest:
-
-```
-pytest
 ```
