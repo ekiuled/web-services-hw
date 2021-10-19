@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 def get_nutrition(db: Session, food_name: str) -> Nutrition:
     nutrition = crud.get(db, food_name)
     if nutrition is None:
-        raise FoodNotFoundError
+        raise FoodNotFoundError(food_name)
     return Nutrition(**nutrition.__dict__)
 
 
