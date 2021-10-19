@@ -34,7 +34,7 @@ class RecipeExists:
     name: str
 
 
-Response = strawberry.union("GerenateRecipeResponse",
+Response = strawberry.union("GenerateRecipeResponse",
                             (GenerateRecipeSuccess, MissingIngredients, RecipeExists))
 
 

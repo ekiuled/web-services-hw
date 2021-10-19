@@ -1,0 +1,24 @@
+services:
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 15672:15672 # The management service
+      - 5672:5672 # RabbitMQ
+
+  worker:
+    build: .
+    depends_on:
+      - rabbit
+    volumes:
+      - db:/app
+    entrypoint: celery -A app.strawberry.recipe_generator worker --loglevel=INFO
+
+  web:
+    build: .
+    depends_on:
+      - worker
+    volumes:
+      - db:/app
+
+volumes:
+  db:

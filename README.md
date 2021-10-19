@@ -8,6 +8,7 @@ Setup the SQLite database, run the server locally and access it at `localhost:80
 
 ```
 python db_setup.py
+celery -A app.strawberry.recipe_generator worker --loglevel=INFO
 uvicorn app.main:app --reload
 ```
 
@@ -140,6 +141,36 @@ query {
       protein
     }
     steps
+  }
+}
+```
+
+### Generate random recipe using existing ingredients (GraphQL)
+Access GraphiQL at `/recipes` and enter your query.
+
+```python
+type Mutation {
+    generateRecipe(name: String, ingredients: [String]): GenerateRecipeResponse
+}
+
+GenerateRecipeResponse = GenerateRecipeSuccess | MissingIngredients | RecipeExists
+```
+
+#### Example
+```python
+mutation {
+  generateRecipe(name: "Avocado & Coffee", ingredients: ["avocado", "coffee"]) {
+        __typename
+    ... on GenerateRecipeSuccess {
+      name
+      ingredients
+    }
+    ... on MissingIngredients {
+      ingredients
+    }
+    ... on RecipeExists {
+      name
+    }
   }
 }
 ```
