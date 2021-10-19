@@ -1,22 +1,12 @@
 from typing import List
 from fastapi import FastAPI, status, HTTPException, Depends
 from sqlalchemy.orm import Session
-from app.fastapi.database import SessionLocal, engine
+from app.fastapi.database import get_db
 from app.fastapi.scheme import *
-from app.fastapi import core, models
+from app.fastapi import core
 from app.errors import *
 
-models.Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @app.get("/nutrition/{food_name}", response_model=Nutrition)
