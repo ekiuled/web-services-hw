@@ -9,7 +9,7 @@ from random import randint
 logger = logging.getLogger(__name__)
 
 
-app = Celery(broker="amqp://localhost:5672")
+app = Celery(broker="amqp://rabbit:5672")
 app.autodiscover_tasks()
 
 
