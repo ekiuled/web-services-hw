@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 15672:15672
+
+  worker:
+    build: .
+    restart: on-failure
+    depends_on:
+      - rabbit
+    entrypoint: celery -A app.strawberry.recipe_generator worker --loglevel=INFO
+
+  web:
+    build: .
+    depends_on:
+      - worker
+    ports:
+      - 8080:80

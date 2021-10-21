@@ -1,22 +1,19 @@
-from app.strawberry.database import nutrition_db
-from app.fastapi.database import SessionLocal, engine
-from app.fastapi import models
+from app.database.dictionaries import *
+from app.database.database import DB, engine
+from app.database.models import *
+from app.database.crud import *
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
-db = SessionLocal()
+db = DB()
 
 for nutrition in nutrition_db.values():
-    name = nutrition["name"]
-    serving_size = nutrition["serving_size"]
-    calories_per_100_g = nutrition["calories_per_100_g"]
-    calories_per_serving = nutrition["calories_per_serving"]
-
-    db_nutrition = models.Nutrition(name=name,
-                                    serving_size=serving_size,
-                                    calories_per_100_g=calories_per_100_g,
-                                    calories_per_serving=calories_per_serving)
+    db_nutrition = Nutrition(**nutrition)
     db.add(db_nutrition)
 
 db.commit()
-db.close()
+
+for recipe in recipe_db.values():
+    add_recipe(db, recipe)
+
+db.commit()

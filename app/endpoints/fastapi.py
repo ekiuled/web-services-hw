@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import FastAPI, status, HTTPException, Depends
 from sqlalchemy.orm import Session
-from app.fastapi.database import get_db
+from app.database.database import get_db
 from app.fastapi.scheme import *
 from app.fastapi import core
 from app.errors import *
